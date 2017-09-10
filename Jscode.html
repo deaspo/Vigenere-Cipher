@@ -1,3 +1,4 @@
+{% load static %}
 <html>
  <head>
    <title>Vignere Cipher</title>
@@ -94,7 +95,7 @@
     <textarea id="plaintext_area2" name="plaintext" placeholder="Encrypted Text"></textarea> <br>
     </div>
 
-    <script src="main.js" type="text/javascript" defer>
+    <script rc="{% static 'main.js' %}" type="text/javascript" defer>
 
     </script>
     </body>

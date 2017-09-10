@@ -1,3 +1,48 @@
+// CSRF Token ERROR
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+//Function for the Post Api Call
+$("#encrypt_button").on("click", function(e){
+e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "/users/",
+        data: {
+            name : $('#name').val(),
+            email : $('#email').val(),
+            message : $('#message').val(),
+            key_input : $('#key_input').val(),
+            // enc_message : $('#enc_message').val(),
+            'csrfmiddlewaretoken' : csrftoken
+        },
+        success:function (response) {
+            console.log("HIGH");
+            console.log(response.outputs);
+
+        },
+        error: function (xhr) {
+            //console.log("HIGH");
+            console.log(xhr);
+        }
+    });
+
+});
+
 function doCrypt(isDecrypt) {
 
   var key = filterKey(document.getElementById("key_input").value);
